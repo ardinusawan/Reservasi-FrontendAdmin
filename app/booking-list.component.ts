@@ -13,7 +13,7 @@ import { BookingService } from './booking.service';
         <!-- this is the new syntax for ng-repeat -->
         <li *ngFor="let booking of bookings">
             <a href="#" [routerLink]="['/booking', booking.id]">
-          {{booking.name}}
+          {{booking.title}}
           </a>
         </li>
       </ul>

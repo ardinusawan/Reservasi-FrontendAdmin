@@ -5,14 +5,14 @@ import { Booking } from './booking';
 
 @Injectable()
 export class BookingService{
-  private baseUrl: string = 'http://swapi.co/api';
-
-  constructor(private http : Http){
+  // private baseUrl: string = 'http://swapi.co/api';
+  private baseUrl: string = 'http://api.lp.if.its.ac.id/api/v1';
+    constructor(private http : Http){
   }
 
   getAll(): Observable<Booking[]>{
     let booking$ = this.http
-      .get(`${this.baseUrl}/people`, {headers: this.getHeaders()})
+      .get(`${this.baseUrl}/bookings`, {headers: this.getHeaders()})
       .map(mapBookings)
       .catch(handleError);
       return booking$;
@@ -20,7 +20,7 @@ export class BookingService{
 
   get(id: number): Observable<Booking> {
     let booking$ = this.http
-      .get(`${this.baseUrl}/people/${id}`, {headers: this.getHeaders()})
+      .get(`${this.baseUrl}/bookings/${id}`, {headers: this.getHeaders()})
       .map(mapBooking);
       return booking$;
   }
@@ -45,16 +45,23 @@ function mapBookings(response:Response): Booking[]{
 
    // The response of the API has a results
    // property with the actual results
-   return response.json().results.map(toBooking)
+  // console.log(response.json());
+   return response.json().map(toBooking)
 }
 
 function toBooking(r:any): Booking{
   let booking = <Booking>({
-    id: extractId(r),
-    url: r.url,
-    name: r.name,
-    weight: r.mass,
-    height: r.height,
+    // id: extractId(r),
+    // url: r.url,
+    // name: r.name,
+    // weight: r.mass,
+    // height: r.height,
+    id: r.id,
+    title: r.title,
+    user: r.user,
+    validation_by: r.validation_by,
+    type: r.type,
+    description: r.description
   });
   console.log('Parsed booking:', booking);
   return booking;
@@ -62,10 +69,11 @@ function toBooking(r:any): Booking{
 
 // to avoid breaking the rest of our app
 // I extract the id from the booking url
-function extractId(bookingData:any){
-  let extractedId = bookingData.url.replace('http://swapi.co/api/people/','').replace('/','');
-  return parseInt(extractedId);
-}
+// function extractId(bookingData:any){
+//   // let extractedId = bookingData.url.replace('http://swapi.co/api/people/','').replace('/','');
+//   let extractedId = bookingData.mass;
+//   return parseInt(extractedId);
+// }
 
 function mapBooking(response:Response): Booking{
   // toBooking looks just like in the previous example
