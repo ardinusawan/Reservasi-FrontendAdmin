@@ -50,7 +50,7 @@ export class BookingDetailsComponent implements OnInit, OnDestroy {
       this.bookingService
         .validasi(this.booking.id)
         .subscribe(
-          (r: Response) => {console.log('Success');}
+          (r: Response) => {console.log(r);}
         )
   }
 }

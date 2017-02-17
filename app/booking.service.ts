@@ -32,28 +32,20 @@ export class BookingService{
 
   validasi(id: number) : Observable<Response>{
     return this.http
-      .patch(`${this.baseUrl}/bookings/${id}`, JSON.stringify({ validation_by: 1}), {headers: this.getHeadersWithToken()});
-
-    // return http.request({
-    //   url: `${this.baseUrl}/bookings/api/v1/bookings/${id}`,
-    //   method: "PATCH",
-    //   headers: { "Content-Type": "application/json" },
-    //   content: JSON.stringify({ validation_by: 1})
-    // }).then(response => {
-    //   var result = response.content.toJSON();
-    //   console.log(result);
-    // });
+      .patch(`${this.baseUrl}/bookings/${id}`, JSON.stringify({ "validation_by": 1}), {headers: this.getHeadersWithToken()});
   }
 
   getHeadersWithToken(){
     let headers = new Headers();
-    headers.append('Accept', 'application/json');
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Bearer Token');
+
     return headers;
   }
 
   private getHeaders(){
     let headers = new Headers();
-    headers.append('Accept', 'application/json');
+    headers.append('Content-Type', 'application/json');
     return headers;
   }
 }
