@@ -3,7 +3,7 @@ import { Booking } from './booking';
 import { BookingService } from './booking.service';
 
 @Component({
-  selector: 'people-list',
+  selector: 'booking-list',
   template: `
   <section>
     <section *ngIf="isLoading && !errorMessage">
