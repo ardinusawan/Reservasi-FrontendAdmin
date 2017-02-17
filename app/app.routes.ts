@@ -10,7 +10,7 @@ const routes: Routes = [
     path: 'booking',
     component: BookingListComponent,
   },
-  // map '/booking/:id' to person details component
+  // map '/booking/:id' to booking details component
   {
     path: 'booking/:id',
     component: BookingDetailsComponent

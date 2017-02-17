@@ -11,11 +11,10 @@ import { BookingService } from './booking.service';
   templateUrl: './booking-details.component.html'
 })
 export class BookingDetailsComponent implements OnInit, OnDestroy {
-    person: Booking;
+    booking: Booking;
     sub: any;
-    professions: string[] = ['jedi', 'bounty hunter', 'princess', 'sith lord'];
 
-    constructor(private peopleService: BookingService,
+    constructor(private bookingService: BookingService,
                 private route: ActivatedRoute,
                 private router: Router){
     }
@@ -23,10 +22,10 @@ export class BookingDetailsComponent implements OnInit, OnDestroy {
     ngOnInit(){
         this.sub = this.route.params.subscribe(params => {
           let id = Number.parseInt(params['id']);
-          console.log('getting person with id: ', id);
-          this.peopleService
+          console.log('getting booking with id: ', id);
+          this.bookingService
             .get(id)
-            .subscribe(p => this.person = p);
+            .subscribe(p => this.booking = p);
         });
     }
 
@@ -34,16 +33,24 @@ export class BookingDetailsComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    gotoPeoplesList(){
+    gotoBookingsList(){
         let link = ['/booking'];
         this.router.navigate(link);
     }
 
-    savePersonDetails(){
-      this.peopleService
-          .save(this.person)
+    saveBookingDetails(){
+      this.bookingService
+          .save(this.booking)
           .subscribe(
             (r: Response) => {console.log('success');}
           );
     }
+
+  setujui(){
+      this.bookingService
+        .validasi(this.booking.id)
+        .subscribe(
+          (r: Response) => {console.log('Success');}
+        )
+  }
 }

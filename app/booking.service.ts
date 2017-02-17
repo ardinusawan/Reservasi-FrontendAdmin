@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers} from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { Booking } from './booking';
-
+import * as http from "http";
 @Injectable()
 export class BookingService{
   // private baseUrl: string = 'http://swapi.co/api';
@@ -26,10 +26,29 @@ export class BookingService{
   }
 
   save(booking: Booking) : Observable<Response>{
-    // this won't actually work because the StarWars API doesn't
-    // is read-only. But it would look like this:
     return this.http
-      .put(`${this.baseUrl}/people/${booking.id}`, JSON.stringify(booking), {headers: this.getHeaders()});
+      .put(`${this.baseUrl}/bookings/${booking.id}`, JSON.stringify(booking), {headers: this.getHeaders()});
+  }
+
+  validasi(id: number) : Observable<Response>{
+    return this.http
+      .patch(`${this.baseUrl}/bookings/${id}`, JSON.stringify({ validation_by: 1}), {headers: this.getHeadersWithToken()});
+
+    // return http.request({
+    //   url: `${this.baseUrl}/bookings/api/v1/bookings/${id}`,
+    //   method: "PATCH",
+    //   headers: { "Content-Type": "application/json" },
+    //   content: JSON.stringify({ validation_by: 1})
+    // }).then(response => {
+    //   var result = response.content.toJSON();
+    //   console.log(result);
+    // });
+  }
+
+  getHeadersWithToken(){
+    let headers = new Headers();
+    headers.append('Accept', 'application/json');
+    return headers;
   }
 
   private getHeaders(){
