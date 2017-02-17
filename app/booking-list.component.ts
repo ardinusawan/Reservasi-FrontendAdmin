@@ -11,7 +11,7 @@ import { BookingService } from './booking.service';
     </section>
       <ul>
         <!-- this is the new syntax for ng-repeat -->
-        <li *ngFor="let person of people">
+        <li *ngFor="let person of booking">
             <a href="#" [routerLink]="['/booking', person.id]">
           {{person.name}}
           </a>
@@ -24,7 +24,7 @@ import { BookingService } from './booking.service';
   `
 })
 export class BookingListComponent implements OnInit{
-  people: Booking[] = [];
+  booking: Booking[] = [];
   errorMessage: string = '';
   isLoading: boolean = true;
 
@@ -34,7 +34,7 @@ export class BookingListComponent implements OnInit{
     this.bookingService
       .getAll()
       .subscribe(
-         /* happy path */ p => this.people = p,
+         /* happy path */ p => this.booking = p,
          /* error path */ e => this.errorMessage = e,
          /* onComplete */ () => this.isLoading = false);
   }

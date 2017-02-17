@@ -5,7 +5,7 @@ import { BookingDetailsComponent } from './booking-details.component';
 
 // Route config let's you map routes to components
 const routes: Routes = [
-  // map '/booking' to the people list component
+  // map '/booking' to the booking list component
   {
     path: 'booking',
     component: BookingListComponent,
