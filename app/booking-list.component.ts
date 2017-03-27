@@ -35,7 +35,7 @@ export class BookingListComponent implements OnInit{
 
   ngOnInit(){
     this.bookingService
-      .getAll()
+      .getUnapproved()
       .subscribe(
          /* happy path */ p => this.bookings = p,
          /* error path */ e => this.errorMessage = e,

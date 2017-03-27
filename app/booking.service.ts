@@ -18,6 +18,14 @@ export class BookingService{
       return booking$;
   }
 
+  getUnapproved(): Observable<Booking[]>{
+    let booking$ = this.http
+      .get(`${this.baseUrl}/bookings/unapproved`, {headers: this.getHeaders()})
+      .map(mapBookings)
+      .catch(handleError);
+      return booking$;
+  }
+
   get(id: number): Observable<Booking> {
     let booking$ = this.http
       .get(`${this.baseUrl}/bookings/${id}`, {headers: this.getHeaders()})
@@ -39,7 +47,6 @@ export class BookingService{
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer Token');
-
     return headers;
   }
 
